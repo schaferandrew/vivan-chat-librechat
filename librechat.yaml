@@ -1,0 +1,44 @@
+version: 1.1.0
+
+endpoints:
+  custom:
+    - name: "OpenRouter"
+      apiKey: "${OPENROUTER_API_KEY}"
+      baseURL: "https://openrouter.ai/api/v1"
+      models:
+        default:
+          # ── Premium ──────────────────────────────────────────
+          - "google/gemini-3-flash-preview"      # default; confirmed in backend
+          - "google/gemini-2.5-pro"              # confirmed in backend
+          - "moonshotai/kimi-k2"                 # Kimi 2.5 — verify ID on openrouter.ai
+          - "z-ai/glm-4.5"                       # GLM 5.0 — verify ID (backend has glm-4.5-air:free)
+          - "anthropic/claude-3-5-haiku"         # latest Haiku — verify for Claude 4.x era
+          - "openai/gpt-4o-mini"                 # latest GPT mini
+          - "openai/gpt-4o"                      # latest GPT full
+          - "anthropic/claude-3.5-sonnet"        # Sonnet — confirmed in backend
+          - "anthropic/claude-3-opus"            # Opus — verify for Claude 4.x era
+          # ── Free ─────────────────────────────────────────────
+          - "openrouter/auto"                    # OpenRouter Free Auto-router
+          - "meta-llama/llama-3.3-70b-instruct:free"
+          - "z-ai/glm-4.5-air:free"
+          - "deepseek/deepseek-r1-0528:free"
+          - "nvidia/nemotron-3-nano-30b-a3b:free"
+          - "arcee-ai/trinity-mini:free"
+        fetch: false
+      titleConvo: true
+      titleModel: "google/gemini-3-flash-preview"
+      modelDisplayLabel: "OpenRouter"
+      dropParams:
+        - "stop"
+
+    - name: "Ollama"
+      apiKey: "ollama"
+      baseURL: "${OLLAMA_HOST}/v1/"
+      models:
+        default:
+          - "llama3.2"
+          - "mistral"
+        fetch: true           # pulls live model list; falls back to default if unreachable
+      titleConvo: true
+      titleModel: "current_model"
+      modelDisplayLabel: "Ollama"
